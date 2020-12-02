@@ -13,13 +13,12 @@ if {[catch {
     puts "Could not open allow.txt."
     exit
 }
+
 set allowList [read $allowListFile]
 close $allowListFile
 
 set allowRegexp [string map {\n | . \\.} $allowList]
 set allowRegexp [regsub -all {\|+$} $allowRegexp {}]
-
-puts $allowRegexp
 
 db eval {DELETE FROM cookies WHERE host_key NOT REGEXP :allowRegexp}
 db close
