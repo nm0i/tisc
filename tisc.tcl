@@ -2,8 +2,9 @@
 
 set cookiePath "~/.local/share/qutebrowser/webengine/Cookies"
 
-package require sqlite3
+cd [file dirname [file normalize [info script]]]
 
+package require sqlite3
 sqlite db $cookiePath
 
 if {[catch {
